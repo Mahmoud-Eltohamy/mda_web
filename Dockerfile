@@ -1,12 +1,12 @@
 FROM ubuntu:latest
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get install -f --quiet -y python3.8 python3-pip unzip firefox wget npm nodejs libgconf2-4 libnss3 libxss1 libappindicator1 libindicator7 xdg-utils
+RUN apt-get update && apt-get install -f --quiet -y python3.8 python3-pip unzip firefox wget libgconf2-4 libnss3 libxss1 libappindicator1 libindicator7 xdg-utils
 RUN wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg --install google-chrome-stable_current_amd64.deb; apt-get --fix-broken --assume-yes install
 RUN pip3 install allure-robotframework robotframework robotframework-extendedrequestslibrary robotframework-faker \
     robotframework-jsonlibrary robotframework-jsonvalidator robotframework-pabot robotframework-randomlibrary \
     robotframework-requests robotframework-screencaplibrary robotframework-seleniumlibrary robotframework-databaselibrary \
-    RESTinstance robotframework-pabot locustio python-owasp-zap-v2.4 sqlmap jupyterhub dbbot
+    RESTinstance robotframework-pabot
 RUN CHROMEDRIVER_VERSION=`wget --no-verbose --output-document - https://chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
     wget --no-verbose --output-document /tmp/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip && \
     unzip -qq /tmp/chromedriver_linux64.zip -d /opt/chromedriver && \
@@ -17,6 +17,3 @@ RUN GECKODRIVER_VERSION=`wget --no-verbose --output-document - https://api.githu
     tar --directory /opt -zxf /tmp/geckodriver.tar.gz && \
     chmod +x /opt/geckodriver && \
     ln -fs /opt/geckodriver /usr/local/bin/geckodriver
-
-RUN wget --no-verbose https://github.com/zaproxy/zaproxy/releases/download/v2.9.0/zaproxy_2.9.0-1_all.deb
-RUN dpkg --install zaproxy_2.9.0-1_all.deb; apt-get --fix-broken --assume-yes install
