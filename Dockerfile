@@ -3,7 +3,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -f --quiet -y python3.8 python3-pip unzip firefox wget
 RUN wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg --install google-chrome-stable_current_amd64.deb; apt-get --fix-broken --assume-yes install
-RUN pip3 install allure-robotframework robotframework robotframework-extendedrequestslibrary robotframework-faker \
+RUN pip3 install allure-robotframework robotframework==3.1.2 robotframework-extendedrequestslibrary robotframework-faker \
     robotframework-jsonlibrary robotframework-jsonvalidator robotframework-pabot robotframework-randomlibrary \
     robotframework-requests robotframework-screencaplibrary robotframework-seleniumlibrary robotframework-databaselibrary \
     RESTinstance robotframework-pabot
